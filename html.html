@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML to blub;// Converter</title>
+</head>
+<body>
+    <h1>HTML to blub;// Converter</h1>
+    <input type="file" id="fileInput">
+    <button onclick="convertToBlub()">Convert to blub;//</button>
+    <pre id="output"></pre>
+
+    <script>
+        function convertToBlub() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const content = e.target.result;
+                    const blubContent = content.replace(/[\s\S]/g, 'blub;//');
+                    document.getElementById('output').textContent = blubContent;
+                };
+                reader.readAsText(file);
+            } else {
+                alert('Please select a file.');
+            }
+        }
+    </script>
+</body>
+</html>
