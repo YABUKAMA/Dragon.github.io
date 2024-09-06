@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemical Formula Finder and Periodic Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        input {
+            padding: 10px;
+            width: 80%;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        #list {
+            margin-top: 20px;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        .formula-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-links {
+            margin-top: 20px;
+        }
+
+        .nav-links a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            max-width: 1000px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="page1" class="page active">
+            <h1>Chemical Formula Finder</h1>
+            <input type="text" id="elementInput" placeholder="Enter element name (e.g., Water, Sodium Chloride)">
+            <button onclick="searchFormula()">Search</button>
+            <div id="result"></div>
+            <h2>List of Common Chemical Formulas</h2>
+            <div id="list"></div>
+            <div class="nav-links">
+                <a href="javascript:void(0);" onclick="showPage('page2')">Go to Periodic Table</a>
+            </div>
+        </div>
+
+        <div id="page2" class="page">
+            <h1>Periodic Table of Elements</h1>
+            <img src="https://www.chemicool.com/images/periodic-table.jpg" alt="Periodic Table">
+            <div class="nav-links">
+                <a href="javascript:void(0);" onclick="showPage('page1')">Back to Chemical Formula Finder</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const formulas = {
+            "water": "H₂O",
+            "carbon dioxide": "CO₂",
+            "oxygen": "O₂",
+            "methane": "CH₄",
+            "ammonia": "NH₃",
+            "glucose": "C₆H₁₂O₆",
+            "sodium chloride": "NaCl",
+            "hydrochloric acid": "HCl",
+            "sulfuric acid": "H₂SO₄",
+            "ethanol": "C₂H₅OH",
+            "acetic acid": "CH₃COOH",
+            "calcium carbonate": "CaCO₃",
+            "nitric acid": "HNO₃",
+            "potassium permanganate": "KMnO₄",
+            "sodium hydroxide": "NaOH",
+            "hydrogen peroxide": "H₂O₂",
+            "baking soda": "NaHCO₃",
+            "silver nitrate": "AgNO₃"
+        };
+
+        function searchFormula() {
+            const input = document.getElementById("elementInput").value.toLowerCase();
+            const resultDiv = document.getElementById("result");
+
+            if (input in formulas) {
+                resultDiv.textContent = `The chemical formula for ${input} is ${formulas[input]}`;
+            } else {
+                resultDiv.textContent = "Chemical formula not found!";
+            }
+        }
+
+        function displayFormulaList() {
+            const listDiv = document.getElementById("list");
+            listDiv.innerHTML = "";
+
+            for (const [name, formula] of Object.entries(formulas)) {
+                const formulaItem = document.createElement("div");
+                formulaItem.classList.add("formula-item");
+                formulaItem.textContent = `${name.charAt(0).toUpperCase() + name.slice(1)}: ${formula}`;
+                listDiv.appendChild(formulaItem);
+            }
+        }
+
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                if (page.id === pageId) {
+                    page.classList.add('active');
+                } else {
+                    page.classList.remove('active');
+                }
+            });
+        }
+
+        window.onload = function() {
+            displayFormulaList();
+        };
+    </script>
+</body>
+</html>
